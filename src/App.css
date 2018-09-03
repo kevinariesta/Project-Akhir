@@ -1,0 +1,63 @@
+.App {
+  text-align: center;
+  background-color: brown;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 0px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.slide .makanan img {
+  max-height: 450px;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#navbarStyle {
+  background-color: #c61515;
+}
+
+#textNav {
+  color: #f0ff8e;
+}
+
+#textNav:hover {
+  color: white !important;
+  background-color: #514848 !important;
+}
+
+#textDropdown {
+  color: #f0ff8e;
+  background-color: #c61515;
+}
+
+#textDropdown:hover {
+  color: white !important;
+  background-color: #514848 !important;
+}
+
+#divider {
+  background-color: #c61515 !important;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
