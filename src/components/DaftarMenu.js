@@ -52,10 +52,10 @@ class MenuList extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>URL</th>
-                                    <th>Image</th>
+                                    <th>Menu</th>
+                                    <th>Deskripsi</th>
+                                    <th>Harga</th>
+                                    <th>Gambar</th>
                                 </tr>
                             </thead>
                             <tbody>
