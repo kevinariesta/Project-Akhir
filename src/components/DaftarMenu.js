@@ -45,7 +45,7 @@ class MenuList extends Component {
                 <div className="col-xs-12">
                 <div className="box">
                     <div className="box-header">
-                        <h1 className="box-title">Ini Movie List</h1>
+                        <h1 className="box-title">Menu Makanan</h1>
                     </div>
                     <div className="box-body">
                         <table id="example2" className="table table-bordered table-hover">
