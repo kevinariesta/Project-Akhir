@@ -32,12 +32,12 @@ class MenuList extends Component {
                     <td>{item.description}</td>
                     <td>{item.harga}</td>
                     <td><img style={{ height: "100px" }} className="img-responsive" src={item.image} alt="image" /></td>
-                    <td><input type="button" className="btn btn-primary" value="Pesan" onClick={() => this.onBtnPesanClick(item.id)} /> </td>
                 </tr>
             )
         })
         return list;
     }
+
     render() { 
         return (
             <div style={{paddingTop: "50px"}} className="container">
@@ -51,7 +51,7 @@ class MenuList extends Component {
                         <table id="example2" className="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No.</th>
                                     <th>Menu</th>
                                     <th>Deskripsi</th>
                                     <th>Harga</th>
@@ -59,16 +59,10 @@ class MenuList extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.renderMovieList()}
+                                {this.renderMenuList()}
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th> <input ref="inputAddTitle" type="text" className="form-control" /> </th>
-                                    <th> <input ref="inputAddDesc" type="text" className="form-control" /> </th>
-                                    <th> <input ref="inputAddURL" type="text" className="form-control" /> </th>
-                                    <th> <input ref="inputAddImage" type="text" className="form-control" /> </th>
-                                    <th> <input type="button" className="btn btn-primary" value="Add" onClick={this.onBtnAddClick} /> </th>
-                                    {/* di onClick, onBtnAddClick ga boleh dikasih () karena kalo dikasih itu, dia bakal ngisi return apa yg ada di dlm function, bukan function keseluruhan */}
                                 </tr>
                             </tfoot>
                         </table>

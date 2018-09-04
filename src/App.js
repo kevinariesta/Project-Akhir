@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import "./App.css";
-import Header from "./components/Header";
-import HomePage from "./components/HomePage";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import './App.css';
+import Header from './components/Header';
+import HomePage from './components/HomePage';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+import DaftarMenu from './components/DaftarMenu';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
+          <Route path="/daftarmenu" component={DaftarMenu} />
         </div>
       </div>
     );

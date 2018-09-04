@@ -22,7 +22,7 @@ class Header extends Component {
             <Navbar.Collapse>
               <Nav>
                 <NavItem eventKey={1} id="textNav">
-                  Menu
+                  <Link to="/daftarmenu">Menu</Link>
                 </NavItem>
                 <NavItem eventKey={2} id="textNav">
                   Penawaran Menarik
@@ -64,7 +64,7 @@ class Header extends Component {
         <Navbar.Collapse>
           <Nav>
             <NavItem eventKey={1} id="textNav">
-              Menu
+              <Link to="/daftarmenu">Menu</Link>
             </NavItem>
             <NavItem eventKey={2} id="textNav">
               Penawaran Menarik
