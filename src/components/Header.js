@@ -2,9 +2,26 @@ import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { onLogout } from '../actioncreators';
+import { onLogout, keepLogin } from '../actioncreators';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class Header extends Component {
+ 
+  componentWillMount() {
+    const cookieNya = cookies.get('LoginWMM');
+    if(cookieNya !== undefined){
+      this.props.keepLogin(cookieNya);
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.auth.username === "") {
+      cookies.remove('LoginWMM');
+    }
+  }
+
   onLogOutClick = () => {
     this.props.onLogout();
   }
@@ -107,4 +124,4 @@ const mapStatetoProps = (state) => {
   return { auth };
 }
 
-export default connect(mapStatetoProps, { onLogout })(Header);
+export default connect(mapStatetoProps, { onLogout, keepLogin })(Header);
