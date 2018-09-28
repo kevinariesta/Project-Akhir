@@ -5,7 +5,7 @@ class CarouselMenu extends Component {
   render() {
     return (
       <div>
-        <h1 style={{ color: "black" }}>{this.props.judul}</h1>
+        <h1 className="hometitle">{this.props.judul}</h1>
         <Carousel className="container slide">
           <Carousel.Item className="makanan">
             <img

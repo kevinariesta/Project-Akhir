@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { API_URL_1 } from '../supports/api-url/apiurl';
+import { API_URL_1 } from '../supports/api-url';
 
 export const onLogin = (user) => {
     return(dispatch) => { 
-         axios.get(API_URL_1 + '/users', {
+         axios.get(API_URL_1 + '/login', {
              params: {
                  email: user.email,
                  password: user.password
              }
-         }).then(user => {
+         }).then((user) => {
              dispatch ({ 
                  type: "USER_LOGIN_SUCCESS",
                  payload: { username: user.data[0].username, email: user.data[0].email, error: "" }
@@ -30,15 +30,16 @@ export const onLogout = () => {
 
 export const onRegister = (user) => {
     return (dispatch) => {
-        axios.post(API_URL_1 + '/users', user) // karena object yg mau dikirim sama dgn yg diterima di Registerpage, gausah dijabarin satu2 propertinya
+        axios.post(API_URL_1 + '/register', user)
         .then((res) => {
-            console.log(res);
+            alert('Register Success!!');
+            // console.log(res);
             dispatch ({ 
                 type: "USER_LOGIN_SUCCESS",
                 payload: { username: res.data.username, email: res.data.email, error: "" }
             });
-        })
-        .then((err) => {
+        }).catch((err) => {
+            alert('Register Error!!');
             console.log(err);
         })     
     }

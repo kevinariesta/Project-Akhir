@@ -9,7 +9,7 @@ import CarouselMenu from "./Carousel";
 class HomePage extends Component {
   render() {
     return (
-      <div style={{ marginTop: "50px" }}>
+      <div id="homepage">
         <CarouselMenu
           legend1={"Nasi Uduk"}
           image1={image1}

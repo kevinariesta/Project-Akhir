@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { API_URL_1 } from '../supports/api-url/apiurl';
+import { API_URL_1 } from '../supports/api-url';
 
 class MenuList extends Component {
     state = { menu: [] }

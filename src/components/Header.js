@@ -27,7 +27,7 @@ class Header extends Component {
   }
 
   renderNavbar = () => {
-    if(this.props.auth.username != "") {
+    if(this.props.auth.username !== "") {
         return(
           <Navbar fixedTop={true} inverse collapseOnSelect id="navbarStyle">
             <Navbar.Header>

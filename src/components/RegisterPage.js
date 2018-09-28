@@ -16,11 +16,10 @@ class RegisterPage extends Component {
     }
     
   onRegisterClick = () => {
-    this.props.onRegister({
-      username: this.refs.username.value,
-      email: this.refs.email.value,
-      password: this.refs.password.value
-    });
+    var username = this.refs.username.value;
+    var email = this.refs.email.value;
+    var password = this.refs.password.value;
+    this.props.onRegister({ username, email, password })
   };
 
   render() {
