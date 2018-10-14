@@ -1097,13 +1097,13 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: white;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #23527c;
-  text-decoration: underline;
+  color: yellow;
+  font-weight: bold;
 }
 a:focus {
   outline: 5px auto -webkit-focus-ring-color;
@@ -3526,7 +3526,7 @@ tbody.collapse.in {
   float: left;
   min-width: 160px;
   padding: 5px 0;
-  margin: 2px 0 0;
+  margin: 0px 0 0;
   font-size: 14px;
   text-align: left;
   list-style: none;
@@ -3545,7 +3545,7 @@ tbody.collapse.in {
 }
 .dropdown-menu .divider {
   height: 1px;
-  margin: 9px 0;
+  margin: 0px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }

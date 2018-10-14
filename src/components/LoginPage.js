@@ -23,15 +23,14 @@ class LoginPage extends Component {
   };
 
   render() {
-    if (this.props.auth.username == "") {
+    if (this.props.auth.username === "") {
       return (
         <div className="login-background">
           <div className="container">
-            <h1 className="form-heading">Login Page</h1>
             <div className="login-form">
               <div className="main-div">
                 <div className="panel">
-                  <h2>Let's Go into Our World</h2>
+                  <h1 className="form-heading">Login Page</h1>
                   <p>Please enter your email and password</p>
                 </div>
 

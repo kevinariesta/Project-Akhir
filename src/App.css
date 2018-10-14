@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  background-color: brown;
 }
 
 .App-logo {
@@ -41,21 +40,27 @@
 }
 
 #navbarStyle {
-  background-color: #c61515;
+  /* background-color: #c61515; */
+  background-color: red;
 }
 
 #textNav {
-  color: #f0ff8e;
+  color: white;
 }
 
 #textNav:hover {
-  color: white !important;
+  color: yellow !important;
   background-color: #514848 !important;
+}
+
+#textNav:focus {
+  color: yellow !important;
 }
 
 #textDropdown {
   color: #f0ff8e;
   background-color: #c61515;
+  margin-top: 0px;
 }
 
 #textDropdown:hover {
@@ -65,6 +70,8 @@
 
 #divider {
   background-color: #c61515 !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 @keyframes App-logo-spin {

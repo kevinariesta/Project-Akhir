@@ -41,9 +41,6 @@ class Header extends Component {
                 <NavItem eventKey={1} id="textNav">
                   <Link to="/daftarmenu">Menu</Link>
                 </NavItem>
-                <NavItem eventKey={2} id="textNav">
-                  Penawaran Menarik
-                </NavItem>
                 <NavDropdown eventKey={3} title="Bantuan" id="textNav">
                   <MenuItem eventKey={3.1} id="textDropdown">Tentang Kami</MenuItem>
                   <MenuItem eventKey={3.2} id="textDropdown">Lokasi Kami</MenuItem>
@@ -73,9 +70,11 @@ class Header extends Component {
     return(
       <Navbar fixedTop={true} inverse collapseOnSelect id="navbarStyle">
         <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/" id="textNav">Warung Melati Mas</Link>
+          <Link to="/">
+            <Navbar.Brand id="textNav">
+              Warung Melati Mas
             </Navbar.Brand>
+          </Link>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>

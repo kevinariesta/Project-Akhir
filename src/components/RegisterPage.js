@@ -23,7 +23,7 @@ class RegisterPage extends Component {
   };
 
   render() {
-    if(this.props.auth.username == "") {
+    if(this.props.auth.username === "") {
       return (
           <div className="login-background">
               <div className="container">
