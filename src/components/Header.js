@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 class Header extends Component {
+  state = { searchValue: "" }
  
   componentWillMount() {
     const cookieNya = cookies.get('LoginWMM');
@@ -26,64 +27,63 @@ class Header extends Component {
     this.props.onLogout();
   }
 
-  renderNavbar = () => {
-    if(this.props.auth.username !== "") {
-        return(
-          <Navbar fixedTop={true} inverse collapseOnSelect id="navbarStyle">
-            <Navbar.Header>
-                <Navbar.Brand>
-                  <Link to="/" id="textNav">Warung Melati Mas</Link>
-                </Navbar.Brand>
-              <Navbar.Toggle />
-            </Navbar.Header>
-            <Navbar.Collapse>
-              <Nav>
-                <NavItem eventKey={1} id="textNav">
-                  <Link to="/daftarmenu">Menu</Link>
-                </NavItem>
-                <NavDropdown eventKey={3} title="Bantuan" id="textNav">
-                  <MenuItem eventKey={3.1} id="textDropdown">Tentang Kami</MenuItem>
-                  <MenuItem eventKey={3.2} id="textDropdown">Lokasi Kami</MenuItem>
-                  <MenuItem eventKey={3.3} id="textDropdown">Hubungi Kami</MenuItem>
-                  <MenuItem divider style={{ "background-color": "black" }} />
-                  <MenuItem eventKey={3.3} id="textDropdown">Syarat dan Ketentuan</MenuItem>
-                </NavDropdown>
-              </Nav>
-              <Nav pullRight>
-                <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="basic-nav-dropdown">
-                  <MenuItem eventKey={4.1}>Profile</MenuItem>
-                  <MenuItem eventKey={4.2}>Settings</MenuItem>
-                  <MenuItem divider />
-                  <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>Log Out</MenuItem>
-                </NavDropdown>
-              </Nav>
-              <Navbar.Form pullLeft>
-                <FormGroup>
-                  <FormControl type="text" placeholder="Cari" />
-                </FormGroup>{" "}
-                <input type="button" value="Enter" />
-              </Navbar.Form>
-            </Navbar.Collapse>
-          </Navbar>
-        );
+  onSearchClick = (value) => {
+    // console.log(value);
+
+    // this.setState({ searchValue: value });
+    // console.log(this.state.searchValue);
+    this.props.history.push(`/daftarmenu?search=${value}`);
+  }
+
+  renderRightNavbar= () => {
+    if(this.props.auth.username !== ""){
+      return(
+        <Nav pullRight>
+          <NavItem eventKey={5} id="textNav">
+            <Link to="/cart">  
+              <div className="icon-cart" style={{ float: "left"}}>
+                <div className="cart-line-1" style={{ backgroundColor: "#E5E9EA"}}></div>
+                <div className="cart-line-2" style={{ backgroundColor: "#E5E9EA"}}></div>
+                <div className="cart-line-3" style={{ backgroundColor: "#E5E9EA"}}></div>
+                <div className="cart-wheel" style={{ backgroundColor: "#E5E9EA"}}></div>
+              </div>
+              Cart
+            </Link>
+          </NavItem>
+          <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="basic-nav-dropdown">
+            <MenuItem eventKey={4.1}>Profile</MenuItem>
+            <MenuItem eventKey={4.2}>Settings</MenuItem>
+            <MenuItem divider />
+            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>Log Out</MenuItem>
+          </NavDropdown>
+        </Nav>
+      );
     }
     return(
+      <Nav pullRight>
+        <NavItem eventKey={1} id="textNav">
+          <Link to="/login">Login</Link>
+        </NavItem>
+        <NavItem eventKey={2} id="textNav">
+          <Link to="/register">Register</Link>
+        </NavItem>
+      </Nav>
+    );
+  }
+
+  renderNavbar = () => {
+    return (
       <Navbar fixedTop={true} inverse collapseOnSelect id="navbarStyle">
         <Navbar.Header>
-          <Link to="/">
-            <Navbar.Brand id="textNav">
-              Warung Melati Mas
+            <Navbar.Brand>
+              <Link to="/" id="textNav">Warung Melati Mas</Link>
             </Navbar.Brand>
-          </Link>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
             <NavItem eventKey={1} id="textNav">
               <Link to="/daftarmenu">Menu</Link>
-            </NavItem>
-            <NavItem eventKey={2} id="textNav">
-              Penawaran Menarik
             </NavItem>
             <NavDropdown eventKey={3} title="Bantuan" id="textNav">
               <MenuItem eventKey={3.1} id="textDropdown">Tentang Kami</MenuItem>
@@ -93,27 +93,23 @@ class Header extends Component {
               <MenuItem eventKey={3.3} id="textDropdown">Syarat dan Ketentuan</MenuItem>
             </NavDropdown>
           </Nav>
-          <Nav pullRight>
-            <NavItem eventKey={1} id="textNav">
-              <Link to="/login">Login</Link>
-            </NavItem>
-            <NavItem eventKey={2} id="textNav">
-              <Link to="/register">Register</Link>
-            </NavItem>
-          </Nav>
+            {this.renderRightNavbar()}
           <Navbar.Form pullLeft>
             <FormGroup>
-              <FormControl type="text" placeholder="Cari" />
+              <FormControl type="text" placeholder="Cari..." inputRef={input => this.search = input } />
             </FormGroup>{" "}
-            <input type="button" value="Enter" />
+            <Link to={`/daftarmenu?search=${this.state.searchValue}`}>
+              <input type="button" value="Submit" onClick={()=>this.onSearchClick(this.search.value)} />
+            </Link>
           </Navbar.Form>
         </Navbar.Collapse>
       </Navbar>
     );
   }
+    
   render() {
     return (
-      this.renderNavbar()
+      this.renderNavbar() 
     );
   }
 }

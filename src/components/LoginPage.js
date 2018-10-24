@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { onLogin } from '../actioncreators';
 import '../supports/css/components/loginpage.css';
 
-const cookies = new Cookies();
-
 class LoginPage extends Component {
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.auth.username !== ""){
-      cookies.set('LoginWMM', newProps.auth.email, { path: '/' });
-    }
-  }
   
   onLoginClick = () => {
     var email = this.refs.email.value;
@@ -59,9 +50,9 @@ class LoginPage extends Component {
   }
 }
 
-const mapStatetoProps = (state) => {
+const mapStateToProps = (state) => {
   const auth = state.auth;
   return { auth };
 };
 
-export default connect(mapStatetoProps, { onLogin })(LoginPage);
+export default connect(mapStateToProps, { onLogin })(LoginPage);

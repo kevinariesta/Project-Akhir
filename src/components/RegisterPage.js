@@ -2,18 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { onRegister } from '../actioncreators';
-import Cookies from 'universal-cookie';
 import '../supports/css/components/loginpage.css';
 
-const cookies = new Cookies();
-
 class RegisterPage extends Component {
-
-    componentWillReceiveProps(newProps) {
-        if (newProps.auth.username !== ""){
-            cookies.set('LoginWMM', newProps.auth.email, { path: '/' });
-        }
-    }
     
   onRegisterClick = () => {
     var username = this.refs.username.value;
@@ -27,12 +18,11 @@ class RegisterPage extends Component {
       return (
           <div className="login-background">
               <div className="container">
-                  <h1 className="form-heading">Register Page</h1>
                       <div className="login-form">
                       <div className="main-div">
                   <div className="panel">
-                      <h2>Sign Up to Enter Our World</h2>
-                      <p>Please enter your email and password</p>
+                    <h1 className="form-heading">Register Page</h1>
+                    <p>Please Register to Order Our Menu</p>
                   </div>
 
               <form id="Login">
@@ -62,9 +52,9 @@ class RegisterPage extends Component {
   }
 }
 
-const mapStatetoProps = (state) => {
+const mapStateToProps = (state) => {
   const auth = state.auth;
   return { auth };
 };
 
-export default connect( mapStatetoProps, { onRegister })(RegisterPage);
+export default connect( mapStateToProps, { onRegister })(RegisterPage);

@@ -1,26 +1,44 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import './App.css';
-import Header from './components/Header';
-import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
-import DaftarMenu from './components/DaftarMenu';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import AppInit from './components/AppInit';
+import { keepLogin, cookieChecked } from './actioncreators';
+
+const cookies = new Cookies();
 
 class App extends Component {
+ 
+  componentWillMount() {
+    const cookieNya = cookies.get('LoginWMM');
+    if(cookieNya !== undefined) {
+      this.props.keepLogin(cookieNya);
+    }
+    else {
+      this.props.cookieChecked();
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.auth.username === "" && (this.props.auth.username !== newProps.auth.username)) {
+      cookies.remove('LoginWMM');
+    }
+    else if(newProps.auth.username !== "" && (this.props.auth.username !== newProps.auth.username)) {
+      cookies.set('LoginWMM', newProps.auth.email, { path: '/' });
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <Header />
-        <div>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/daftarmenu" component={DaftarMenu} />
-        </div>
-      </div>
+      <AppInit />
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  const auth = state.auth;
+
+  return { auth };
+}
+
+export default withRouter(connect(mapStateToProps, { keepLogin, cookieChecked })(App));
