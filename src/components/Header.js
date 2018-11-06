@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { onLogout, keepLogin } from '../actioncreators';
 import Cookies from 'universal-cookie';
@@ -27,12 +27,13 @@ class Header extends Component {
     this.props.onLogout();
   }
 
-  onSearchClick = (value) => {
-    // console.log(value);
+  onSearchClick = async (value) => {
+    await console.log(value);
 
     // this.setState({ searchValue: value });
     // console.log(this.state.searchValue);
-    this.props.history.push(`/daftarmenu?search=${value}`);
+    await this.props.history.push(`/daftarmenu?search=${value}`);
+    await console.log(this.props);
   }
 
   renderRightNavbar= () => {
@@ -40,7 +41,7 @@ class Header extends Component {
       return(
         <Nav pullRight>
           <NavItem eventKey={5} id="textNav">
-            <Link to="/cart">  
+            <Link to={`/cart?username=${this.props.auth.username}`}>  
               <div className="icon-cart" style={{ float: "left"}}>
                 <div className="cart-line-1" style={{ backgroundColor: "#E5E9EA"}}></div>
                 <div className="cart-line-2" style={{ backgroundColor: "#E5E9EA"}}></div>
@@ -51,7 +52,7 @@ class Header extends Component {
             </Link>
           </NavItem>
           <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="basic-nav-dropdown">
-            <MenuItem eventKey={4.1}>Profile</MenuItem>
+            <MenuItem eventKey={4.1}>Transaction History</MenuItem>
             <MenuItem eventKey={4.2}>Settings</MenuItem>
             <MenuItem divider />
             <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>Log Out</MenuItem>
@@ -89,7 +90,7 @@ class Header extends Component {
               <MenuItem eventKey={3.1} id="textDropdown">Tentang Kami</MenuItem>
               <MenuItem eventKey={3.2} id="textDropdown">Lokasi Kami</MenuItem>
               <MenuItem eventKey={3.3} id="textDropdown">Hubungi Kami</MenuItem>
-              <MenuItem divider style={{ "background-color": "black" }} />
+              <MenuItem divider style={{ backgroundColor: "black" }} />
               <MenuItem eventKey={3.3} id="textDropdown">Syarat dan Ketentuan</MenuItem>
             </NavDropdown>
           </Nav>
@@ -99,7 +100,7 @@ class Header extends Component {
               <FormControl type="text" placeholder="Cari..." inputRef={input => this.search = input } />
             </FormGroup>{" "}
             <Link to={`/daftarmenu?search=${this.state.searchValue}`}>
-              <input type="button" value="Submit" onClick={()=>this.onSearchClick(this.search.value)} />
+              <input type="button" value="Submit" onClick={() => this.onSearchClick(this.search.value)} />
             </Link>
           </Navbar.Form>
         </Navbar.Collapse>
@@ -116,7 +117,8 @@ class Header extends Component {
 
 const mapStatetoProps = (state) => {
   const auth = state.auth;
+  
   return { auth };
 }
 
-export default connect(mapStatetoProps, { onLogout, keepLogin })(Header);
+export default withRouter(connect(mapStatetoProps, { onLogout, keepLogin })(Header));

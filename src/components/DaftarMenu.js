@@ -1,49 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
-import { Col, Thumbnail, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Col, Thumbnail } from 'react-bootstrap';
 import axios from 'axios';
 import { API_URL_1 } from '../supports/api-url';
-import queryString from 'query-string';
 
 class MenuList extends Component {
-    state = { daftarmenu: [], kategori: [], sortCondition: 1 }
-            
-    // getMenuList = () => {
-    //     axios.get(API_URL_1 + '/listmenu')
-    //     .then((res) => {
-    //         this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori });
-    //         console.log(res);
-    //     })
-    //     .catch((err) => {
-    //         alert("Error Occured");
-    //         console.log(err);
-    //     })
-    // }
-
-    // componentWillReceiveProps() {
-      
-    // }
+    state = { daftarmenu: [], kategori: [], sortCondition: 1, idmenu: 0 }
 
     componentWillMount() {
-        let searchKey = queryString.parse(this.props.location.search);
-        console.log(searchKey);
-        console.log(searchKey.search);
-
-        // if(searchKey !== null) {
-        //     axios.get(API_URL_1 + '/searchmenu', {
-        //         params: {
-        //             searchValue: searchKey.search
-        //         }
-        //     }).then((res) => {
-        //         this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori })
-        //         console.log(res);   
-        //     }).catch((err) => {
-        //         alert('Search Error!!!');
-        //         console.log(err);
-        //     })
-        // }
-        // else if(searchKey === null) {
         axios.get(API_URL_1 + '/listmenu')
         .then((res) => {
             this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori });
@@ -145,8 +110,14 @@ class MenuList extends Component {
         }
     }
 
+    onSelectMenu = (id) => {
+        console.log('idmenu = ' + id);
+        this.setState({ idmenu: id });
+    }
+
     renderMenuList = () => {
         const list = this.state.daftarmenu.map((item, index) => {
+            const { idmenu, menu, kategori, harga, images } = item;
             return(
                 // <tr key={index}>
                 //     <td>{item.iddaftarmenu}</td>
@@ -156,13 +127,13 @@ class MenuList extends Component {
                 //     <td>{item.kategori}</td>
                 //     {/* <td><img style={{ height: "100px" }} className="img-responsive" src={item.image} alt="image" /></td> */}
                 // </tr>
-                <Col xs={6} md={4}>
-                    <Thumbnail src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + item.images)} alt="242x200">
-                        <h3>{item.menu}</h3>
-                        <p>Kategori: {item.kategori}</p>
-                        <p>Rp {item.harga},-
+                <Col xs={6} md={4} key={index}>
+                    <Thumbnail src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)} alt="242x200" className="img-responsive">
+                        <h3>{menu}</h3>
+                        <p>Kategori: {kategori}</p>
+                        <p>Rp {harga},-
                             &nbsp;
-                            <Link to="/menudetails"><Button bsStyle="default">Tambah</Button></Link>
+                            <input type="button" className="btn btn-warning" value="Tambah" onClick={() => this.onSelectMenu(idmenu)} />
                         </p>
                     </Thumbnail>
                 </Col>
@@ -174,66 +145,79 @@ class MenuList extends Component {
     renderOptionKategoriSearch = () => {
         const arrKtgr = this.state.kategori.map((item, index) => {
             return (<option key={index} value={item.nama}>{item.nama}</option>);
-            })
-            return arrKtgr;
+        })
+        return arrKtgr;
     }
 
     render() { 
-        return (
-            <div style={{paddingTop: "50px"}} className="container">
-                <div className="row">
-                <div className="col-xs-12">
-                <div className="box">
-                    <div className="box-header">
-                        <h1 className="box-title">Menu Makanan</h1>
-                    </div>
-                    <div style={{ padding: '25px' }}>
-                        <select ref="KategoriSearch" onChange={this.onSelectSearch} style={{ margin: '0 10px 10px 0' }}>
-                            <option value=""> -- Pilih Kategori -- </option>
-                            {this.renderOptionKategoriSearch()}
-                        </select>
-                        <label style={{ marginRight: '10px' }}>Sorting by :</label>
-                        <select ref="SortingMenu" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
-                            <option value="Harga">Harga</option>
-                            <option value="Menu">Menu</option>
-                        </select>
-                        <select ref="JenisUrutan" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
-                            <option value="Asc">Ascending</option>
-                            <option value="Desc">Descending</option>
-                        </select>
-                        <input type="button" value="Submit" onClick={this.onBtnSortClick} />
-                    </div>
-                    <div className="box-body">
-                        {/* <table id="example2" className="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Menu</th>
-                                    <th>Deskripsi</th>
-                                    <th>Harga</th>
-                                    <th>Kategori</th>
-                                    <th>Gambar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+        console.log(this.state.idmenu);
+        if(this.state.idmenu === 0) {
+            return (
+                <div style={{paddingTop: "50px"}} className="container">
+                    <div className="row">
+                    <div className="col-xs-12">
+                    <div className="box">
+                        <div className="box-header">
+                            <h1 className="box-title">Menu Makanan</h1>
+                        </div>
+                        <div style={{ padding: '25px' }}>
+                            <select ref="KategoriSearch" onChange={this.onSelectSearch} style={{ margin: '0 10px 10px 0' }}>
+                                <option value=""> -- Pilih Kategori -- </option>
+                                {this.renderOptionKategoriSearch()}
+                            </select>
+                            <label style={{ marginRight: '10px' }}>Sorting by :</label>
+                            <select ref="SortingMenu" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
+                                <option value="Harga">Harga</option>
+                                <option value="Menu">Menu</option>
+                            </select>
+                            <select ref="JenisUrutan" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
+                                <option value="Asc">Ascending</option>
+                                <option value="Desc">Descending</option>
+                            </select>
+                            <input type="button" value="Submit" onClick={this.onBtnSortClick} />
+                        </div>
+                        <div className="box-body">
+                            {/* <table id="example2" className="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Menu</th>
+                                        <th>Deskripsi</th>
+                                        <th>Harga</th>
+                                        <th>Kategori</th>
+                                        <th>Gambar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.renderMenuList()}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            */}
+                            <div>
                                 {this.renderMenuList()}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        */}
-                        <div>
-                            {this.renderMenuList()}
+                            </div>
                         </div>
                     </div>
+                    </div>
+                    </div>
                 </div>
-                </div>
-                </div>
-            </div>
-        );
+            );
+        }
+        else if(this.state.idmenu !== 0 && this.props.auth.username === "") {
+            return <Redirect to={'/login'} />;
+        }
+        return <Redirect to={`/menudetails?id=${this.state.idmenu}`} />;
     }
 }
+
+const mapStateToProps = (state) => {
+    const auth = state.auth;
+
+    return { auth };
+}
  
-export default MenuList;
+export default connect(mapStateToProps, {})(MenuList);
