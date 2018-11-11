@@ -31,7 +31,7 @@ class HomePage extends Component {
             <img width={600} height={400} src={image5} alt="Nasi Timbel" />
           </Media.Left>
           <Media.Body style={{ verticalAlign: 'middle' }}>
-            <Media.Heading><h1>Paket Nasi Timbel</h1></Media.Heading>
+            <h1>Paket Nasi Timbel</h1>
             <p>Nasi Timbel + Empal + Tahu + Tempe</p>
             <h3>HANYA Rp. 40.000,-</h3>
             <input type="button" className="btn btn-primary" value="PESAN SEKARANG" />
@@ -39,7 +39,7 @@ class HomePage extends Component {
         </Media>
         <Media style={{ marginRight: '50px' }}>
           <Media.Body style={{ verticalAlign: 'middle' }}>
-            <Media.Heading><h1>Paket Nasi Uduk</h1></Media.Heading>
+            <h1>Paket Nasi Uduk</h1>
             <p>Nasi Uduk + Telur Balado + Mie Goreng + Tempe Kecap</p>
             <h3>HANYA Rp. 33.000,-</h3>
             <input type="button" className="btn btn-primary" value="PESAN SEKARANG" />
@@ -53,7 +53,7 @@ class HomePage extends Component {
             <img width={600} height={400} src={image3} alt="Nasi Gudeg" />
           </Media.Left>
           <Media.Body style={{ verticalAlign: 'middle' }}>
-            <Media.Heading><h1>Paket Nasi Gudeg</h1></Media.Heading>
+            <h1>Paket Nasi Gudeg</h1>
             <p>Nasi Gudeg + Telur Kecap + Ayam Opor + Krecek</p>
             <h3>HANYA Rp. 40.000,-</h3>
             <input type="button" className="btn btn-primary" value="PESAN SEKARANG" />

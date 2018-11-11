@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { Table, Button, Modal } from 'react-bootstrap';
+import { Table, Button, Modal, FormGroup, ControlLabel } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url';
 import imagecart from "../images/empty-cart.jpg";
 import thanks from '../images/thanks.gif';
@@ -53,7 +53,8 @@ class CartPage extends Component {
 
     onBtnSaveClick = (id) => {
         axios.put(API_URL_1 + `/cart/${id}`, {
-            jumlah: this.refs.EditJumlah.value
+            jumlah: this.refs.EditJumlah.value,
+            username: this.state.username
         }).then((res) => {
             if(res.data.status === 'Error'){
                 console.log(res.data.err);
@@ -70,18 +71,24 @@ class CartPage extends Component {
     }
 
     onCheckOutClick = () => {
-        axios.post(API_URL_1 + '/checkout', {
-            username: this.state.username,
-            totalharga: this.renderTotalPrice()
-        })
-        .then((res) => {
-            console.log(res.data);
-            this.setState({ cart: "checkout", show: true });
-        })
-        .catch((err) => {
-            alert('Error Checkout!');
-            console.log(err);
-        })
+        if(this.refs.inputAddress.value !== "") {
+            axios.post(API_URL_1 + '/checkout', {
+                username: this.state.username,
+                totalharga: this.renderTotalPrice(),
+                address: this.refs.inputAddress.value
+            })
+            .then((res) => {
+                console.log(res.data);
+                this.setState({ cart: "checkout", show: true });
+            })
+            .catch((err) => {
+                alert('Error Checkout!');
+                console.log(err);
+            })
+        }
+        return (
+            alert('Please Enter Your Address in the Form Below!')
+        );
     }
 
     onHandleClose = () => {
@@ -186,6 +193,12 @@ class CartPage extends Component {
                             </tr>
                         </tbody>
                     </Table>
+
+                    <FormGroup controlId="formControlsTextarea" style={{textAlign: 'left'}}>
+                        <ControlLabel>Input Address:</ControlLabel>
+                        <textarea className="form-control" rows="3" ref="inputAddress" placeholder="Please Input Your Address" />
+                    </FormGroup>
+
                     <input type="button" className="btn btn-primary" value="CHECKOUT" onClick={this.onCheckOutClick} />
                 </div>
             </div>

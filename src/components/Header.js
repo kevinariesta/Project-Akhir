@@ -8,7 +8,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 class Header extends Component {
-  state = { searchValue: "" }
+  state = { userState: 1 }
  
   componentWillMount() {
     const cookieNya = cookies.get('LoginWMM');
@@ -20,6 +20,10 @@ class Header extends Component {
   componentWillReceiveProps(newProps) {
     if(newProps.auth.username === "") {
       cookies.remove('LoginWMM');
+      this.setState({ userState: 0 })
+    }
+    else if(newProps.auth.username !== "") {
+      this.setState({ userState: 1 })
     }
   }
 
@@ -27,20 +31,15 @@ class Header extends Component {
     this.props.onLogout();
   }
 
-  onSearchClick = async (value) => {
-    console.log(value);
-
-    // await this.setState({ searchValue: value });
-    // console.log(this.state.searchValue);
-    await this.props.history.push(`/search?value=${value}`);
-    await console.log(this.props);
+  onSearchClick = (value) => {
+    this.props.history.push(`/search?value=${value}`);
   }
 
   renderRightNavbar= () => {
     if(this.props.auth.username === "admin") {
       return (
         <Nav pullRight>
-          <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="basic-nav-dropdown">
+          <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="textNav">
               <MenuItem eventKey={4.1}>
                 <Link to="/adminproduct" id="navdrop">Menu List</Link>
               </MenuItem>
@@ -50,7 +49,9 @@ class Header extends Component {
               </Link>
             </MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>Log Out</MenuItem>
+            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>
+              <Link to="/" id="navdrop">Log Out</Link>
+            </MenuItem>
           </NavDropdown>
         </Nav>
       );
@@ -69,21 +70,25 @@ class Header extends Component {
               Cart
             </Link>
           </NavItem>
-          <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="basic-nav-dropdown">
+          <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="textNav">
             <MenuItem eventKey={4.1}>Transaction History</MenuItem>
-            <MenuItem eventKey={4.2}>Settings</MenuItem>
+            <MenuItem eventKey={4.2}>
+              <Link to={`/profile?username=${this.props.auth.username}`} id="navdrop">Profile</Link>
+            </MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>Log Out</MenuItem>
+            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>
+              <Link to="/" id="navdrop">Log Out</Link>
+            </MenuItem>
           </NavDropdown>
         </Nav>
       );
     }
     return(
       <Nav pullRight>
-        <NavItem eventKey={1} id="textNav">
+        <NavItem eventKey={1} id="textNav" componentClass="span">
           <Link to="/login">Login</Link>
         </NavItem>
-        <NavItem eventKey={2} id="textNav">
+        <NavItem eventKey={2} id="textNav" componentClass="span">
           <Link to="/register">Register</Link>
         </NavItem>
       </Nav>
@@ -101,26 +106,17 @@ class Header extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} id="textNav">
+            <NavItem eventKey={1} id="textNav" componentClass="span">
               <Link to="/daftarmenu">Menu</Link>
             </NavItem>
-            <NavDropdown eventKey={3} title="Bantuan" id="textNav">
-              <MenuItem eventKey={3.1} id="textDropdown">Tentang Kami</MenuItem>
-              <MenuItem eventKey={3.2} id="textDropdown">Lokasi Kami</MenuItem>
-              <MenuItem eventKey={3.3} id="textDropdown">Hubungi Kami</MenuItem>
-              <MenuItem divider />
-              <MenuItem eventKey={3.3} id="textDropdown">Syarat dan Ketentuan</MenuItem>
-            </NavDropdown>
           </Nav>
-            {this.renderRightNavbar()}
           <Navbar.Form pullLeft>
             <FormGroup>
               <FormControl type="text" placeholder="Cari..." inputRef={input => this.search = input } />
             </FormGroup>{" "}
-            {/* <Link to={`/search?value=${this.state.searchValue}`}> */}
               <input type="button" className="btn btn-default" value="Submit" onClick={() => this.onSearchClick(this.search.value)} />
-            {/* </Link> */}
           </Navbar.Form>
+          {this.renderRightNavbar()}
         </Navbar.Collapse>
       </Navbar>
     );

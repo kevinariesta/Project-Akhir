@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Col, Thumbnail } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import axios from 'axios';
 import { API_URL_1 } from '../supports/api-url';
+import background from '../images/backgroundhomepage.jpg';
 
 class MenuList extends Component {
     state = { daftarmenu: [], kategori: [], sortCondition: 1, idmenu: 0 }
@@ -120,14 +121,16 @@ class MenuList extends Component {
             const { idmenu, menu, kategori, harga, images } = item;
             return(
                 <Col xs={6} md={4} key={index}>
-                    <Thumbnail src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)} alt="242x200" className="img-responsive">
+                    <div className="thumbnail">
+                        <img src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)} 
+                        alt="menu" className="img-responsive" id="imgthumbnail" />
                         <h3>{menu}</h3>
                         <p>Kategori: {kategori}</p>
                         <p>Rp {harga},-
                             &nbsp;
                             <input type="button" className="btn btn-warning" value="Tambah" onClick={() => this.onSelectMenu(idmenu)} />
                         </p>
-                    </Thumbnail>
+                    </div>
                 </Col>
             )
         })
@@ -145,19 +148,20 @@ class MenuList extends Component {
         console.log(this.state.idmenu);
         if(this.state.idmenu === 0) {
             return (
-                <div style={{paddingTop: "50px"}} className="container">
+                <div style={{paddingTop: "50px"}} id="menu-background">
+                    <div className="container">
                     <div className="row">
                     <div className="col-xs-12">
                     <div className="box">
                         <div className="box-header">
-                            <h1 className="box-title">Menu Makanan</h1>
+                            <h1 className="box-title" style={{ color: '#ff7200', fontWeight: 'bold' }}>Menu Makanan</h1>
                         </div>
                         <div style={{ padding: '25px' }}>
                             <select ref="KategoriSearch" onChange={this.onSelectSearch} style={{ margin: '0 10px 10px 0' }}>
                                 <option value=""> -- Pilih Kategori -- </option>
                                 {this.renderOptionKategoriSearch()}
                             </select>
-                            <label style={{ marginRight: '10px' }}>Sorting by :</label>
+                            <label style={{ marginRight: '10px', color: 'orange', fontWeight: 'bolder' }}>Sorting by :</label>
                             <select ref="SortingMenu" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
                                 <option value="Harga">Harga</option>
                                 <option value="Menu">Menu</option>
@@ -171,6 +175,7 @@ class MenuList extends Component {
                         <div className="box-body">
                             <div>{this.renderMenuList()}</div>
                         </div>
+                    </div>
                     </div>
                     </div>
                     </div>

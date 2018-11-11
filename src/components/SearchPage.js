@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Col, Thumbnail } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import axios from 'axios';
 import queryString from 'query-string';
 import { API_URL_1 } from '../supports/api-url';
@@ -10,17 +10,15 @@ class MenuList extends Component {
     state = { daftarmenu: [], kategori: [], sortCondition: 1, idmenu: 0, search: "" }
 
     getSearchList = () => {
-        let SearchVal = (queryString.parse(this.props.location.search)).value;
-        console.log(SearchVal);
+        let SearchKey = (queryString.parse(this.props.location.search)).value;
+        console.log(SearchKey);
         axios.get(API_URL_1 + '/searchmenu', {
             params: {
-                searchValue: SearchVal
+                searchValue: SearchKey
             }
         })
         .then((res) => {
-            this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori, search: SearchVal });
-            // console.log(res);
-            // console.log(`Search State = ${this.state.search}`);
+            this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori, search: SearchKey });
         })
         .catch((err) => {
             alert("Error Occured");
@@ -34,19 +32,17 @@ class MenuList extends Component {
 
     componentWillReceiveProps(newProps) {
         console.log(newProps);
-        let newValue = (queryString.parse(newProps.location.search)).value;
-        console.log(newValue);
+        let newSearchKey = (queryString.parse(newProps.location.search)).value;
+        console.log(newSearchKey);
         
-        if(newValue !== this.state.search) {
+        if(newSearchKey !== this.state.search) {
             axios.get(API_URL_1 + '/searchmenu', {
                 params: {
-                    searchValue: newValue
+                    searchValue: newSearchKey
                 }
             })
             .then((res) => {
-                this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori, search: newValue });
-                // console.log(res);
-                // console.log(`Search State = ${this.state.search}`);
+                this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori, search: newSearchKey });
             })
             .catch((err) => {
                 alert("Error Occured");
@@ -155,14 +151,16 @@ class MenuList extends Component {
             const { idmenu, menu, kategori, harga, images } = item;
             return(
                 <Col xs={6} md={4} key={index}>
-                    <Thumbnail src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)} alt="242x200" className="img-responsive">
+                    <div className="thumbnail">
+                        <img src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)}
+                        alt="menu" className="img-responsive" id="imgthumbnail" />
                         <h3>{menu}</h3>
                         <p>Kategori: {kategori}</p>
                         <p>Rp {harga},-
                             &nbsp;
                             <input type="button" className="btn btn-warning" value="Tambah" onClick={() => this.onSelectMenu(idmenu)} />
                         </p>
-                    </Thumbnail>
+                    </div>
                 </Col>
             )
         })

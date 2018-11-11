@@ -22,11 +22,15 @@
   font-size: large;
 }
 
-#homepage{
+#homepage {
   padding-top: 50px;
   width: auto;
   height: 100%;
 } 
+
+#menu-background {
+background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/backgroundhomepage.jpg")
+}
 
 .slide .makanan img {
   max-height: 450px;
@@ -182,6 +186,26 @@
   position: absolute;
   left: 200%;
   bottom: 0;
+}
+
+#imgthumbnail {
+  height: 200px;
+  width: 100%;
+  overflow: auto;
+}
+
+#profile {
+  padding-bottom: 10px;
+}
+
+#profile-edit {
+  padding-bottom: 15px;
+}
+
+.navbar-nav span[role=button] {
+  padding: 15px;
+  display: inline-block;
+  line-height: 20px;
 }
 
 @keyframes App-logo-spin {

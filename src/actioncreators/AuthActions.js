@@ -8,15 +8,15 @@ export const onLogin = (user) => {
                  email: user.email,
                  password: user.password
              }
-         }).then((user) => {
+         }).then((res) => {
              dispatch ({ 
                  type: "USER_LOGIN_SUCCESS",
-                 payload: { username: user.data[0].username, email: user.data[0].email, error: "" }
+                 payload: { username: res.data[0].username, email: res.data[0].email, error: "" }
              });
              dispatch ({
                  type: "COOKIES_CHECKED"
              });
-         }).catch(err => {
+         }).catch((err) => {
              console.log(err);
              dispatch ({
                  type: "USER_LOGIN_FAIL"
@@ -29,13 +29,13 @@ export const onLogout = () => {
     return {
         type: "USER_LOGOUT"
     };
-}
+};
 
 export const cookieChecked = () => {
     return { 
         type: "COOKIES_CHECKED"
     };
-}
+};
 
 export const onRegister = (user) => {
     return (dispatch) => {
@@ -55,7 +55,7 @@ export const onRegister = (user) => {
             console.log(err);
         })     
     }
-}
+};
 
 export const keepLogin = (email) => {
     return(dispatch) => { 
@@ -63,15 +63,15 @@ export const keepLogin = (email) => {
              params: {
                  email: email
              }
-         }).then((user) => {
+         }).then((res) => {
              dispatch ({ 
                  type: "USER_LOGIN_SUCCESS",
-                 payload: { username: user.data[0].username, email: user.data[0].email, error: "" }
+                 payload: { username: res.data[0].username, email: res.data[0].email, error: "" }
              });
              dispatch ({
                  type: "COOKIES_CHECKED"
              });
-         }).catch(err => {
+         }).catch((err) => {
              console.log(err);
              dispatch ({
                  type: "USER_LOGIN_FAIL"
@@ -79,3 +79,23 @@ export const keepLogin = (email) => {
          })
      }
  };
+
+ export const EditUserData = (user) => {
+     return (dispatch) => {
+        axios.put(API_URL_1 + `/userdata/${user.id}`, user)
+        .then((res) => {
+            alert('Edit Profile Success');
+            dispatch ({
+                type: "USER_LOGIN_SUCCESS",
+                payload: { username: res.data[0].username, email: res.data[0].email, error: "" }
+            });
+            dispatch ({
+                type: "COOKIES_CHECKED"
+            });
+        })
+        .catch((err) => {
+            alert('Error Editing Profile');
+            console.log(err);
+        })
+     }
+ }

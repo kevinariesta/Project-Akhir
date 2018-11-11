@@ -208,7 +208,7 @@ class AdminProduct extends Component {
                         <td>{idmenu}</td>
                         <td>
                             <img src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)} 
-                            alt="menu" className="img-responsive" style={{ height: "100px" }} />
+                            alt="menu" className="img-responsive" style={{ height: "100px", width: "200px" }} />
                         </td>
                         <td>{menu}</td>
                         <td>{description}</td>
@@ -225,7 +225,7 @@ class AdminProduct extends Component {
                     <td>{idmenu}</td>
                     <td><input type="text" ref="EditImage" defaultValue={images} style={{ width: '150px'}} /></td>
                     <td><input type="text" ref="EditMenu" defaultValue={menu} style={{ width: '150px' }} /></td>
-                    <td><input type="text" ref="EditDescription" defaultValue={description} style={{ width: '150px' }} /></td>
+                    <td><textarea row="4" ref="EditDescription" defaultValue={description} style={{ width: '300px' }} /></td>
                     <td><input type="number" ref="EditHarga" defaultValue={harga} style={{ width: '150px' }} /></td> 
                     <td>
                         <select ref="EditKategori" defaultValue={kategori}>
