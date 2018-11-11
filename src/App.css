@@ -74,6 +74,10 @@
   padding-bottom: 0px;
 }
 
+#navdrop {
+  color: black !important;
+}
+
 .icon-cart {
   width: 24px;
   height: 24px;

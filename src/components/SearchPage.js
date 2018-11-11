@@ -3,21 +3,56 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Col, Thumbnail } from 'react-bootstrap';
 import axios from 'axios';
+import queryString from 'query-string';
 import { API_URL_1 } from '../supports/api-url';
 
 class MenuList extends Component {
-    state = { daftarmenu: [], kategori: [], sortCondition: 1, idmenu: 0 }
+    state = { daftarmenu: [], kategori: [], sortCondition: 1, idmenu: 0, search: "" }
 
-    componentWillMount() {
-        axios.get(API_URL_1 + '/listmenu')
+    getSearchList = () => {
+        let SearchVal = (queryString.parse(this.props.location.search)).value;
+        console.log(SearchVal);
+        axios.get(API_URL_1 + '/searchmenu', {
+            params: {
+                searchValue: SearchVal
+            }
+        })
         .then((res) => {
-            this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori });
+            this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori, search: SearchVal });
             // console.log(res);
+            // console.log(`Search State = ${this.state.search}`);
         })
         .catch((err) => {
             alert("Error Occured");
             console.log(err);
         })
+    }
+
+    componentWillMount() {
+        this.getSearchList();
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log(newProps);
+        let newValue = (queryString.parse(newProps.location.search)).value;
+        console.log(newValue);
+        
+        if(newValue !== this.state.search) {
+            axios.get(API_URL_1 + '/searchmenu', {
+                params: {
+                    searchValue: newValue
+                }
+            })
+            .then((res) => {
+                this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori, search: newValue });
+                // console.log(res);
+                // console.log(`Search State = ${this.state.search}`);
+            })
+            .catch((err) => {
+                alert("Error Occured");
+                console.log(err);
+            })
+        }
     }
 
     onSelectSearch = () => {
@@ -150,7 +185,7 @@ class MenuList extends Component {
                     <div className="col-xs-12">
                     <div className="box">
                         <div className="box-header">
-                            <h1 className="box-title">Menu Makanan</h1>
+                            <h1 className="box-title">Search Result</h1>
                         </div>
                         <div style={{ padding: '25px' }}>
                             <select ref="KategoriSearch" onChange={this.onSelectSearch} style={{ margin: '0 10px 10px 0' }}>

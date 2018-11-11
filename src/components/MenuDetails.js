@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import { API_URL_1 } from '../supports/api-url';
 
 class MenuDetails extends Component {
-    state = { menu: [], count: 0 };
+    state = { menu: [], count: 1 };
 
     componentWillMount() {
         let idMenu = queryString.parse(this.props.location.search);
@@ -30,8 +30,8 @@ class MenuDetails extends Component {
 
     onDecrementClick = () => {
         this.setState({ count: this.state.count -1 })
-        if(this.state.count < 1) {
-            this.setState({ count: 0 })
+        if(this.state.count < 2) {
+            this.setState({ count: 1 })
         }
     }
 

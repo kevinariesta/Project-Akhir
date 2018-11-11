@@ -7,8 +7,11 @@ import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import DaftarMenu from './DaftarMenu';
 import MenuDetails from './MenuDetails';
+import SearchPage from './SearchPage';
 import Footer from './Footer';
 import CartPage from './CartPage';
+import AdminProduct from './AdminProduct';
+import AdminTrans from './AdminTransHistory';
 
 class AppInit extends Component {
   render() {
@@ -22,6 +25,9 @@ class AppInit extends Component {
           <Route path="/daftarmenu" component={DaftarMenu} />
           <Route path="/menudetails" component={MenuDetails} />
           <Route path="/cart" component={CartPage} />
+          <Route path="/adminproduct" component={AdminProduct} />
+          <Route path="/admintransaction" component={AdminTrans} />
+          <Route path='/search' component={SearchPage} />
         </div>
         <Footer />
       </div>

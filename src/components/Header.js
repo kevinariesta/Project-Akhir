@@ -28,16 +28,34 @@ class Header extends Component {
   }
 
   onSearchClick = async (value) => {
-    await console.log(value);
+    console.log(value);
 
-    // this.setState({ searchValue: value });
+    // await this.setState({ searchValue: value });
     // console.log(this.state.searchValue);
-    await this.props.history.push(`/daftarmenu?search=${value}`);
+    await this.props.history.push(`/search?value=${value}`);
     await console.log(this.props);
   }
 
   renderRightNavbar= () => {
-    if(this.props.auth.username !== ""){
+    if(this.props.auth.username === "admin") {
+      return (
+        <Nav pullRight>
+          <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="basic-nav-dropdown">
+              <MenuItem eventKey={4.1}>
+                <Link to="/adminproduct" id="navdrop">Menu List</Link>
+              </MenuItem>
+            <MenuItem eventKey={4.2}>
+              <Link to="admintransaction" id="navdrop">
+                Transaction History
+              </Link>
+            </MenuItem>
+            <MenuItem divider />
+            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>Log Out</MenuItem>
+          </NavDropdown>
+        </Nav>
+      );
+    }
+    if(this.props.auth.username !== "" && this.props.auth.username !== "admin") {
       return(
         <Nav pullRight>
           <NavItem eventKey={5} id="textNav">
@@ -90,7 +108,7 @@ class Header extends Component {
               <MenuItem eventKey={3.1} id="textDropdown">Tentang Kami</MenuItem>
               <MenuItem eventKey={3.2} id="textDropdown">Lokasi Kami</MenuItem>
               <MenuItem eventKey={3.3} id="textDropdown">Hubungi Kami</MenuItem>
-              <MenuItem divider style={{ backgroundColor: "black" }} />
+              <MenuItem divider />
               <MenuItem eventKey={3.3} id="textDropdown">Syarat dan Ketentuan</MenuItem>
             </NavDropdown>
           </Nav>
@@ -99,9 +117,9 @@ class Header extends Component {
             <FormGroup>
               <FormControl type="text" placeholder="Cari..." inputRef={input => this.search = input } />
             </FormGroup>{" "}
-            <Link to={`/daftarmenu?search=${this.state.searchValue}`}>
-              <input type="button" value="Submit" onClick={() => this.onSearchClick(this.search.value)} />
-            </Link>
+            {/* <Link to={`/search?value=${this.state.searchValue}`}> */}
+              <input type="button" className="btn btn-default" value="Submit" onClick={() => this.onSearchClick(this.search.value)} />
+            {/* </Link> */}
           </Navbar.Form>
         </Navbar.Collapse>
       </Navbar>

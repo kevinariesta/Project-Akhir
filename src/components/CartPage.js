@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { Table } from 'react-bootstrap';
+import { Table, Button, Modal } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url';
 import imagecart from "../images/empty-cart.jpg";
+import thanks from '../images/thanks.gif';
 
 class CartPage extends Component {
-    state = { cart: [], editedItemId: 0 };
+    state = { cart: [], editedItemId: 0, username: "", show: false };
 
     componentWillMount() {
         let name = (queryString.parse(this.props.location.search)).username;
@@ -16,7 +17,7 @@ class CartPage extends Component {
                 username: name
             }
         }).then((res) => {
-            this.setState({ cart: res.data })
+            this.setState({ cart: res.data, username: name })
             console.log('Get Cart Data!!');
             console.log(res.data);
         }).catch((err) => {
@@ -34,11 +35,10 @@ class CartPage extends Component {
     }
 
     onBtnDeleteClick = (id) => {
-        let name = (queryString.parse(this.props.location.search)).username;
         if(window.confirm('Anda yakin untuk menghapus ini dari Cart?')) {
             axios.delete(API_URL_1 + '/cart/' + id, {
                 params: {
-                    username: name
+                    username: this.state.username
                 }
             })
             .then((res) => {
@@ -67,6 +67,25 @@ class CartPage extends Component {
             alert('Error Cart Editing!!');
             console.log(err);
         })
+    }
+
+    onCheckOutClick = () => {
+        axios.post(API_URL_1 + '/checkout', {
+            username: this.state.username,
+            totalharga: this.renderTotalPrice()
+        })
+        .then((res) => {
+            console.log(res.data);
+            this.setState({ cart: "checkout", show: true });
+        })
+        .catch((err) => {
+            alert('Error Checkout!');
+            console.log(err);
+        })
+    }
+
+    onHandleClose = () => {
+        this.setState({ show: false });
     }
     
     renderTotalPrice = () => {
@@ -111,7 +130,32 @@ class CartPage extends Component {
     }
 
     render() { 
-        if(this.state.cart.length === 0) {
+        if(this.state.cart === "checkout" && this.state.show === true) {
+            return (
+                <div className="container" style={{ margin: '100px' }}>
+                    <Modal show={this.state.show}>
+                        <Modal.Header>
+                            <Modal.Title><h1>Your Transaction is Completed!!!</h1></Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body style={{ paddingTop: '10px' }}>Please Wait while your Order is being Processed..</Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.onHandleClose}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
+                    <div style={{ paddingTop: '50px' }}>
+                        <img src={thanks} alt="Thank you" />
+                    </div>
+                </div>
+            );
+        }
+        else if(this.state.cart === "checkout" && this.state.show === false) {
+            return (
+                <div style={{ paddingTop: '50px' }}>
+                    <img src={thanks} alt="Thank you" />
+                </div>
+            );
+        }
+        else if(this.state.cart.length === 0) {
             return (
                 <div style={{ paddingTop: '50px' }}>
                     <img src={imagecart} alt='Empty Cart' />
@@ -142,7 +186,7 @@ class CartPage extends Component {
                             </tr>
                         </tbody>
                     </Table>
-                    <input type="button" className="btn btn-primary" value="CHECKOUT" />
+                    <input type="button" className="btn btn-primary" value="CHECKOUT" onClick={this.onCheckOutClick} />
                 </div>
             </div>
         );
