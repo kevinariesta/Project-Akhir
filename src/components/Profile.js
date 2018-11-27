@@ -4,7 +4,6 @@ import axios from 'axios';
 import queryString from 'query-string';
 import { Panel, Col } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url';
-import { EditUserData } from '../actioncreators';
 
 class Profile extends Component {
     state = { userdata: [], editState: false, username: "" }
@@ -25,27 +24,6 @@ class Profile extends Component {
         })
     }
 
-    componentWillReceiveProps(newProps) {
-        console.log(newProps);
-        // console.log(`ini Username BARU: ${newProps.auth.username}`);
-        // if(newProps.auth.username !== this.state.username) {
-        //     this.props.history.push(`/profile?username=${newProps.auth.username}`);
-        //     let newName = (queryString.parse(this.props.location.search)).username;
-        //     axios.get(API_URL_1 + '/userdata', {
-        //         params: {
-        //             username: newName
-        //         }
-        //     })
-        //     .then((res) => {
-        //         this.setState({ userdata: res.data, username: newName });
-        //     })
-        //     .catch((err) => {
-        //         alert("Error Occured");
-        //         console.log(err);
-        //     })    
-        // }
-    }
-
     onEditClick = () => {
         this.setState({ editState: true });
     }
@@ -55,13 +33,16 @@ class Profile extends Component {
     }
 
     onBtnSaveClick = (id) => {
-        var username = this.refs.EditUsername.value;
-        var email = this.refs.EditEmail.value;
-        var password = this.refs.EditPassword.value;
-        var alamat = this.refs.EditAddress.value;
-
-        this.props.EditUserData({ id, username, email, password, alamat });
-        this.setState({ editState: false });
+        axios.put(API_URL_1 + `/userdata/${id}`, {
+            username: this.state.username,
+            alamat: this.refs.EditAddress.value
+        }).then((res) => {
+            this.setState({ userdata: res.data, editState: false });
+            alert('Edit Address Success!');
+        }).catch((err) => {
+            alert('Error Editing Address');
+            console.log(err);
+        })
     }
         
     renderProfile = () => {
@@ -85,10 +66,10 @@ class Profile extends Component {
                                         <li id="profile-details">Address</li>
                                     </Col>
                                     <Col xs={6} md={8}>
-                                        <div id="profile">: {username}<br/></div>
-                                        <div id="profile">: {email}<br/></div>
-                                        <div id="profile">: {password}<br/></div>
-                                        <div id="profile">: {alamat}<br/></div>
+                                        <div id="profile">: {username}</div>
+                                        <div id="profile">: {email}</div>
+                                        <div id="profile">: {password}</div>
+                                        <div id="profile">: {alamat}</div>
                                     </Col>
                                 </ul>
                             </Panel.Body>
@@ -113,9 +94,9 @@ class Profile extends Component {
                                 <li id="profile-edit">Address</li>
                             </Col>
                             <Col xs={6} md={8}>
-                                <div id="profile">: <input type="text" ref="EditUsername" defaultValue={username} style={{ width: 'auto' }} /> <br/> </div>
-                                <div id="profile">: <input type="text" ref="EditEmail" defaultValue={email} style={{ width: 'auto' }} /> <br/> </div>
-                                <div id="profile">: <input type="password" ref="EditPassword" defaultValue={password} style={{ width: 'auto' }} /> <br/> </div>
+                                <div id="profile">: {username}</div>
+                                <div id="profile">: {email}</div>
+                                <div id="profile">: {password}</div>
                                 <div id="profile">: <textarea rows="5" ref="EditAddress" defaultValue={alamat} style={{ width: '500px' }} /> <br/> </div>
                             </Col>
                         </ul>
@@ -131,7 +112,7 @@ class Profile extends Component {
 
     render() { 
         return (
-            <div style={{paddingTop: "50px"}} className="container">
+            <div style={{paddingTop: "50px", paddingBottom: '250px'}} className="container">
                 <div className="row">
                 <div className="col-xs-12">
                 <div className="box">
@@ -155,4 +136,4 @@ const mapStateToProps = (state) => {
     return { auth };
 }
  
-export default connect(mapStateToProps, { EditUserData })(Profile);
+export default connect(mapStateToProps, {})(Profile);

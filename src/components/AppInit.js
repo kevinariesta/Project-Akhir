@@ -13,6 +13,7 @@ import CartPage from './CartPage';
 import AdminProduct from './AdminProduct';
 import AdminTrans from './AdminTransHistory';
 import Profile from './Profile';
+import TransHistory from './TransHistoryUser';
 
 class AppInit extends Component {
   render() {
@@ -30,6 +31,7 @@ class AppInit extends Component {
           <Route path="/admintransaction" component={AdminTrans} />
           <Route path='/search' component={SearchPage} />
           <Route path='/profile' component={Profile} />
+          <Route path='/transhistory' component={TransHistory} />
         </div>
         <Footer />
       </div>

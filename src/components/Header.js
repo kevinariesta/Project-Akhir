@@ -40,10 +40,10 @@ class Header extends Component {
       return (
         <Nav pullRight>
           <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="textNav">
-              <MenuItem eventKey={4.1}>
+              <MenuItem eventKey={4.1} componentClass="span">
                 <Link to="/adminproduct" id="navdrop">Menu List</Link>
               </MenuItem>
-            <MenuItem eventKey={4.2}>
+            <MenuItem eventKey={4.2} componentClass="span">
               <Link to="admintransaction" id="navdrop">
                 Transaction History
               </Link>
@@ -71,7 +71,9 @@ class Header extends Component {
             </Link>
           </NavItem>
           <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="textNav">
-            <MenuItem eventKey={4.1}>Transaction History</MenuItem>
+            <MenuItem eventKey={4.1}>
+              <Link to={`/transhistory?username=${this.props.auth.username}`} id="navdrop">Transaction History</Link>
+            </MenuItem>
             <MenuItem eventKey={4.2}>
               <Link to={`/profile?username=${this.props.auth.username}`} id="navdrop">Profile</Link>
             </MenuItem>

@@ -71,24 +71,19 @@ class CartPage extends Component {
     }
 
     onCheckOutClick = () => {
-        if(this.refs.inputAddress.value !== "") {
-            axios.post(API_URL_1 + '/checkout', {
-                username: this.state.username,
-                totalharga: this.renderTotalPrice(),
-                address: this.refs.inputAddress.value
-            })
-            .then((res) => {
-                console.log(res.data);
-                this.setState({ cart: "checkout", show: true });
-            })
-            .catch((err) => {
-                alert('Error Checkout!');
-                console.log(err);
-            })
-        }
-        return (
-            alert('Please Enter Your Address in the Form Below!')
-        );
+        axios.post(API_URL_1 + '/checkout', {
+            username: this.state.username,
+            totalharga: this.renderTotalPrice(),
+            address: this.refs.inputAddress.value
+        })
+        .then((res) => {
+            console.log(res.data);
+            this.setState({ cart: "checkout", show: true });
+        })
+        .catch((err) => {
+            alert('Error Checkout!');
+            console.log(err);
+        })
     }
 
     onHandleClose = () => {
@@ -199,7 +194,7 @@ class CartPage extends Component {
                         <textarea className="form-control" rows="3" ref="inputAddress" placeholder="Please Input Your Address" />
                     </FormGroup>
 
-                    <input type="button" className="btn btn-primary" value="CHECKOUT" onClick={this.onCheckOutClick} />
+                    <input type="button" className="btn btn-primary" value="CHECKOUT" onClick={this.onCheckOutClick} style={{marginBottom: '100px'}} />
                 </div>
             </div>
         );

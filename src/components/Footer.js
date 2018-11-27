@@ -4,7 +4,7 @@ import { Grid, Nav, NavItem, footer } from 'react-bootstrap';
 class Footer extends Component{
   render(){
     return (
-      <footer style={{ backgroundColor: "red", marginTop: '10px' }}>
+      <footer style={{ backgroundColor: "red" }}>
         <Grid>
           <Nav>
             <NavItem

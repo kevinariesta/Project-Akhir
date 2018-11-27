@@ -58,7 +58,7 @@ class MenuList extends Component {
 
     renderTransactionDetail = () => {
         const detailList = this.state.transDetail.map((item, index) => {
-            const { idtransdetail, menu, jumlah, harga, images } = item;
+            const { idtransdetail, menu, jumlah, harga, images, alamat } = item;
             return (
                 <tr key={index}>
                     <td>{idtransdetail}</td>
@@ -69,6 +69,7 @@ class MenuList extends Component {
                     <td>{menu}</td>
                     <td>{jumlah}</td>
                     <td>{harga}</td>
+                    <td>{alamat}</td>
                 </tr>
             )
         })
@@ -76,7 +77,7 @@ class MenuList extends Component {
     }
 
     renderTransactionPage = () => {
-        if(this.state.transDetail.length !== 0 && this.state.show === true) {
+        if(this.state.transDetail.length > 0 && this.state.show === true) {
             return (
                 <div className="box-body">
                     <Modal show={this.state.show}>
@@ -89,6 +90,7 @@ class MenuList extends Component {
                                         <th>Menu</th>
                                         <th>Jumlah</th>
                                         <th>Harga per Menu</th>
+                                        <th>Alamat</th>
                                     </tr>
                                 </thead>
                                 <tbody>

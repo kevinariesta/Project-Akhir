@@ -178,7 +178,8 @@ class MenuList extends Component {
         console.log(this.state.idmenu);
         if(this.state.idmenu === 0) {
             return (
-                <div style={{paddingTop: "50px"}} className="container">
+                <div style={{ backgroundColor: '#2ac93c' }}>
+                    <div style={{paddingTop: "50px"}} className="container">
                     <div className="row">
                     <div className="col-xs-12">
                     <div className="box">
@@ -204,6 +205,7 @@ class MenuList extends Component {
                         <div className="box-body">
                             <div>{this.renderMenuList()}</div>
                         </div>
+                    </div>
                     </div>
                     </div>
                     </div>

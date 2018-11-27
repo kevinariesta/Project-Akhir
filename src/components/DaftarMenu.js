@@ -118,13 +118,15 @@ class MenuList extends Component {
 
     renderMenuList = () => {
         const list = this.state.daftarmenu.map((item, index) => {
-            const { idmenu, menu, kategori, harga, images } = item;
+            const { idmenu, menu, kategori, description, harga, images } = item;
             return(
                 <Col xs={6} md={4} key={index}>
                     <div className="thumbnail">
                         <img src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)} 
                         alt="menu" className="img-responsive" id="imgthumbnail" />
+                        {/* <p>{images}</p> */}
                         <h3>{menu}</h3>
+                        {/* <p>{description}</p> */}
                         <p>Kategori: {kategori}</p>
                         <p>Rp {harga},-
                             &nbsp;
