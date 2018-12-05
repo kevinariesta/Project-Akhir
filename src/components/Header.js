@@ -40,17 +40,17 @@ class Header extends Component {
       return (
         <Nav pullRight>
           <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="textNav">
-              <MenuItem eventKey={4.1} componentClass="span">
-                <Link to="/adminproduct" id="navdrop">Menu List</Link>
+              <MenuItem eventKey={4.1} componentClass="span" id="navdrop">
+                <Link to="/adminproduct" id="navdroptext">Menu List</Link>
               </MenuItem>
-            <MenuItem eventKey={4.2} componentClass="span">
-              <Link to="admintransaction" id="navdrop">
+            <MenuItem eventKey={4.2} componentClass="span" id="navdrop">
+              <Link to="/admintransaction" id="navdroptext">
                 Transaction History
               </Link>
             </MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>
-              <Link to="/" id="navdrop">Log Out</Link>
+            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick} componentClass="span" id="navdrop">
+              <Link to="/" id="navdroptext">Log Out</Link>
             </MenuItem>
           </NavDropdown>
         </Nav>
@@ -59,7 +59,7 @@ class Header extends Component {
     if(this.props.auth.username !== "" && this.props.auth.username !== "admin") {
       return(
         <Nav pullRight>
-          <NavItem eventKey={5} id="textNav">
+          <NavItem eventKey={5} id="textNav" componentClass="span">
             <Link to={`/cart?username=${this.props.auth.username}`}>  
               <div className="icon-cart" style={{ float: "left"}}>
                 <div className="cart-line-1" style={{ backgroundColor: "#E5E9EA"}}></div>
@@ -71,15 +71,15 @@ class Header extends Component {
             </Link>
           </NavItem>
           <NavDropdown eventKey={4} title={"Hello, " + this.props.auth.username} id="textNav">
-            <MenuItem eventKey={4.1}>
-              <Link to={`/transhistory?username=${this.props.auth.username}`} id="navdrop">Transaction History</Link>
+            <MenuItem eventKey={4.1} componentClass="span" id="navdrop">
+              <Link to={`/transhistory?username=${this.props.auth.username}`} id="navdroptext">Transaction History</Link>
             </MenuItem>
-            <MenuItem eventKey={4.2}>
-              <Link to={`/profile?username=${this.props.auth.username}`} id="navdrop">Profile</Link>
+            <MenuItem eventKey={4.2} componentClass="span" id="navdrop">
+              <Link to={`/profile?username=${this.props.auth.username}`} id="navdroptext">Profile</Link>
             </MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick}>
-              <Link to="/" id="navdrop">Log Out</Link>
+            <MenuItem eventKey={4.3} onSelect={this.onLogOutClick} componentClass="span" id="navdrop">
+              <Link to="/" id="navdroptext">Log Out</Link>
             </MenuItem>
           </NavDropdown>
         </Nav>
@@ -108,7 +108,7 @@ class Header extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} id="textNav" componentClass="span">
+            <NavItem eventKey={1} id="textNav"componentClass="span">
               <Link to="/daftarmenu">Menu</Link>
             </NavItem>
           </Nav>

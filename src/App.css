@@ -22,12 +22,6 @@
   font-size: large;
 }
 
-#homepage {
-  padding: 50px 0;
-  width: auto;
-  height: 100%;
-} 
-
 #menu-background {
   background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/backgroundhomepage.jpg");
 }
@@ -35,6 +29,13 @@
 #home-background {
   background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/homepage.jpg");
   padding: 50px 0;
+  width: auto;
+  height: 100%;
+}
+
+#search-background {
+  background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/searchpage.jpg");
+  padding: 50px 0 ;
   width: auto;
   height: 100%;
 }
@@ -47,6 +48,15 @@
 #cartpage {
   background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/menudetails.jpg");
   padding: 50px 150px 355px 150px;
+}
+
+#transaction {
+  background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/menudetails.jpg");
+  padding: 50px 150px 300px 150px;
+}
+
+#searchtitle {
+  color: white;
 }
 
 .slide .makanan img {
@@ -71,30 +81,21 @@
 #textNav:hover {
   color: yellow !important;
   background-color: #514848 !important;
+  height: 55px;
 }
 
 #textNav:focus {
   color: yellow !important;
 }
 
-#textDropdown {
-  color: #f0ff8e;
-  background-color: #c61515;
-  margin-top: 0px;
-}
-
-#textDropdown:hover {
-  color: white !important;
-  background-color: #514848 !important;
-}
-
-#divider {
-  background-color: #c61515 !important;
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
 #navdrop {
+  padding: 10px;
+  display: inline-block;
+  line-height: 15px;
+  margin: 0 10px;
+}
+
+#navdroptext {
   color: black !important;
 }
 

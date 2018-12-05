@@ -35,11 +35,11 @@ class Footer extends Component{
                 <div className="d-flex flex-row" id="mc_embed_signup">
 
 
-                    <form className="navbar-form" noValidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get">
+                    <form className="navbar-form" noValidate={true} action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get">
                       <div className="input-group add-on">
                           <input className="form-control" name="EMAIL" placeholder="Email address" onFocus={this.placeholder} onBlur={this.placeholder} type="email" required />
                       <div style={{position: 'absolute', left: '-5000px'}}>
-                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabIndex="-1" value="" type="text" />
+                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabIndex="-1" type="text" />
                       </div>
                         <div className="input-group-btn">
                           <button className="genric-btn"><span className="lnr lnr-arrow-right"></span></button>

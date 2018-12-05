@@ -183,19 +183,11 @@ class MenuList extends Component {
                         </div>
                         <div className="sidenav">
                             <p>Kategori</p>
-                            <Select options={this.OptionKategori()} onChange={opt => this.onSelectSearch(opt.value)} />
+                                <Select options={this.OptionKategori()} onChange={opt => this.onSelectSearch(opt.value)} />
                             <p>Sort by:</p>
-                            {/* <select ref="SortingMenu" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
-                                <option value="Harga">Harga</option>
-                                <option value="Menu">Menu</option>
-                            </select> */}
-                            <Select options={SortingOption} onChange={opt => this.onSortingSelect(opt.value)} />
-                            {/* <select ref="JenisUrutan" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
-                                <option value="Asc">Ascending</option>
-                                <option value="Desc">Descending</option>
-                            </select> */}
-                            <Select options={LevelOption} onChange={opt => this.onLevelSelect(opt.value)} />
-                            <input type="button" value="Submit" onClick={this.onBtnSortClick} />
+                                <Select options={SortingOption} onChange={opt => this.onSortingSelect(opt.value)} />
+                                <Select options={LevelOption} onChange={opt => this.onLevelSelect(opt.value)} />
+                            <input type="button" value="Submit" className="btn btn-success" onClick={this.onBtnSortClick} style={{ marginTop: '10px' }}/>
                         </div>
                         <div className="box-body">
                             <div>{this.renderMenuList()}</div>

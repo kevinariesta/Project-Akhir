@@ -10,7 +10,6 @@ import CarouselMenu from "./Carousel";
 class HomePage extends Component {
   render() {
     return (
-      // <div style={{ backgroundColor: '#f4831f'}}>
       <div id="home-background">
         <CarouselMenu
           legend1={"Nasi Uduk"}

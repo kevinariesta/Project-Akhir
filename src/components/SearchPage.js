@@ -5,6 +5,7 @@ import { Col } from 'react-bootstrap';
 import axios from 'axios';
 import queryString from 'query-string';
 import { API_URL_1 } from '../supports/api-url';
+import image from '../images/noresultsfound.jpg';
 
 class MenuList extends Component {
     state = { daftarmenu: [], kategori: [], sortCondition: 1, idmenu: 0, search: "" }
@@ -175,33 +176,17 @@ class MenuList extends Component {
     // }
 
     render() { 
-        console.log(this.state.idmenu);
-        if(this.state.idmenu === 0) {
+        // console.log(this.state.idmenu);
+        if(this.state.idmenu === 0 && this.state.daftarmenu.length > 0) {
             return (
-                <div style={{ backgroundColor: '#2ac93c' }}>
-                    <div style={{paddingTop: "50px"}} className="container">
+                <div id="search-background">
+                    <div className="container">
                     <div className="row">
                     <div className="col-xs-12">
                     <div className="box">
                         <div className="box-header">
-                            <h1 className="box-title">Search Result</h1>
+                            <h1 className="box-title" id="searchtitle">Search Result</h1>
                         </div>
-                        {/* <div style={{ padding: '25px' }}>
-                            <select ref="KategoriSearch" onChange={this.onSelectSearch} style={{ margin: '0 10px 10px 0' }}>
-                                <option value=""> -- Pilih Kategori -- </option>
-                                {this.renderOptionKategoriSearch()}
-                            </select>
-                            <label style={{ marginRight: '10px' }}>Sorting by :</label>
-                            <select ref="SortingMenu" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
-                                <option value="Harga">Harga</option>
-                                <option value="Menu">Menu</option>
-                            </select>
-                            <select ref="JenisUrutan" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
-                                <option value="Asc">Ascending</option>
-                                <option value="Desc">Descending</option>
-                            </select>
-                            <input type="button" value="Submit" onClick={this.onBtnSortClick} />
-                        </div> */}
                         <div className="box-body">
                             <div>{this.renderMenuList()}</div>
                         </div>
@@ -212,10 +197,28 @@ class MenuList extends Component {
                 </div>
             );
         }
-        else if(this.state.idmenu !== 0 && this.props.auth.username === "") {
+        else if(this.state.idmenu !== 0 && this.props.auth.username === "" && this.state.daftarmenu.length > 0) {
             return <Redirect to={'/login'} />;
         }
-        return <Redirect to={`/menudetails?id=${this.state.idmenu}`} />;
+        else if(this.state.idmenu !== 0 && this.props.auth.username !== "" && this.state.daftarmenu.length > 0) {
+            return <Redirect to={`/menudetails?id=${this.state.idmenu}`} />;
+        }
+        return (
+            <div id="search-background">
+                <div className="container">
+                <div className="row">
+                <div className="col-xs-12">
+                <div className="box">
+                    <div className="box-header">
+                        <h1 className="box-title" id="searchtitle">Search Result</h1>
+                    </div>
+                    <img src={image} alt="No Results Found" />
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        );
     }
 }
 

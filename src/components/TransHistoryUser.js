@@ -6,7 +6,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url';
 
 class TransHistory extends Component {
-    state = { transhistory: [], transdetail: [], show: false, username: "" }
+    state = { transactionDisp: [], transhistory: [], transdetail: [], show: false, username: "" }
 
     componentWillMount() {
         let name = (queryString.parse(this.props.location.search)).username;
@@ -16,7 +16,7 @@ class TransHistory extends Component {
             }
         })
         .then((res) => {
-            this.setState({ transhistory: res.data, username: name });
+            this.setState({ transactionDisp: res.data.orderedTrans, transhistory: res.data.transaction, username: name });
         })
         .catch((err) => {
             alert("Error Occured");
@@ -45,13 +45,13 @@ class TransHistory extends Component {
     }
         
     renderTransactionHistory = () => {
-        const list = this.state.transhistory.map((item, index) => {
-            const { idtrans, totalharga } = item;
+        const list = this.state.transactionDisp.map((item, index) => {
+            const { TransactionID, totalharga } = item;
             return (
                 <tr key={index}>
                     <td>
-                        <input type="button" className="btn btn-primary" value={idtrans} 
-                        onClick={() => this.onTransDetailClick(idtrans)} />
+                        <input type="button" className="btn btn-primary" value={TransactionID}
+                        onClick={() => this.onTransDetailClick(TransactionID)} />
                     </td>
                     <td>{totalharga}</td>
                 </tr>
@@ -108,7 +108,6 @@ class TransHistory extends Component {
                     <thead>
                         <tr>
                             <th>Transaction ID</th>
-                            <th>Username</th>
                             <th>Total Harga</th>
                         </tr>
                     </thead>
@@ -138,7 +137,7 @@ class TransHistory extends Component {
 
     render() {
         return (
-            <div style={{paddingTop: "50px", paddingBottom: '150px'}} className="container">
+            <div className="container" style={{ padding: '50px 0'}}>
                 <div className="row">
                 <div className="col-xs-12">
                 <div className="box">
