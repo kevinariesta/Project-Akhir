@@ -3,16 +3,20 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import axios from 'axios';
+import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url';
-import background from '../images/backgroundhomepage.jpg';
 
 class MenuList extends Component {
-    state = { daftarmenu: [], kategori: [], sortCondition: 1, idmenu: 0 }
+    state = { daftarmenu: [], kategori: [], sortState: 0, levelState: 0, idmenu: 0, valueKategori: "" }
 
     componentWillMount() {
+        this.getAllMenuList()
+    }
+
+    getAllMenuList = () => {
         axios.get(API_URL_1 + '/listmenu')
         .then((res) => {
-            this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori });
+            this.setState({ daftarmenu: res.data.daftarmenu, kategori: res.data.kategori, valueKategori: "All Menu" });
             // console.log(res);
         })
         .catch((err) => {
@@ -20,43 +24,52 @@ class MenuList extends Component {
             console.log(err);
         })
     }
-
-    onSelectSearch = () => {
-        axios.get(API_URL_1 + '/filterCatgr', {
-            params: {
-                namakategori: this.refs.KategoriSearch.value
-            }
-        }).then((res) => {
-            this.setState({ daftarmenu: res.data })
-            // console.log(res.data);
-        }).catch((err) => {
-            alert('Error!');
-            console.log(err);
-        })
+    
+    onSelectSearch = (value) => {
+        if (value === "All Menu") {
+            this.getAllMenuList()
+        }
+        else {
+            axios.get(API_URL_1 + '/filterCatgr', {
+                params: {
+                    namakategori: value
+                }
+            }).then((res) => {
+                this.setState({ daftarmenu: res.data, valueKategori: value })
+                // console.log(res.data);
+                console.log(this.state.valueKategori);
+            }).catch((err) => {
+                alert('Error!');
+                console.log(err);
+            })
+        }
     }
 
-    onSortingMethod = () => {
-        const method = this.refs.SortingMenu.value;
-        const level = this.refs.JenisUrutan.value;
-        if(method === "Harga" && level === "Asc") {
-            this.setState({ sortCondition: 1 })
+    onSortingSelect = (method) => {
+        if(method === "harga") {
+            this.setState({ sortState: 1 })
         }
-        else if(method === "Harga" && level === "Desc") {
-            this.setState({ sortCondition: 2 })
+        else if(method === "menu") {
+            this.setState({ sortState: 2 })
         }
-        else if(method === "Menu" && level === "Asc") {
-            this.setState({ sortCondition: 3 })
+    }
+
+    onLevelSelect = (level) => {
+        if(level === "Asc") {
+            this.setState({ levelState: 1 })
         }
-        else if(method === "Menu" && level === "Desc") {
-            this.setState({ sortCondition: 4 })
+        else if(level === "Desc") {
+            this.setState({ levelState: 2 })
         }
     }
 
     onBtnSortClick = () => {
-        if(this.state.sortCondition === 1) {
+        const sorting = this.state.sortState;
+        const level = this.state.levelState;
+        if(sorting === 1 && level === 1) {
             axios.get(API_URL_1 + '/sorthargaAsc', {
                 params: {
-                    namakategori: this.refs.KategoriSearch.value
+                    namakategori: this.state.valueKategori
                 }
             }).then((res) => {
                 this.setState({ daftarmenu: res.data })
@@ -67,10 +80,10 @@ class MenuList extends Component {
                 console.log(err);
             })
         }
-        else if(this.state.sortCondition === 2) {
+        else if(sorting === 1 && level === 2) {
             axios.get(API_URL_1 + '/sorthargaDesc', {
                 params: {
-                    namakategori: this.refs.KategoriSearch.value
+                    namakategori: this.state.valueKategori
                 }
             }).then((res) => {
                 this.setState({ daftarmenu: res.data })
@@ -81,10 +94,10 @@ class MenuList extends Component {
                 console.log(err);
             })
         }
-        else if(this.state.sortCondition === 3) {
+        else if(sorting === 2 && level === 1) {
             axios.get(API_URL_1 + '/sortmenuAsc', {
                 params: {
-                    namakategori: this.refs.KategoriSearch.value
+                    namakategori: this.state.valueKategori
                 }
             }).then((res) => {
                 this.setState({ daftarmenu: res.data })
@@ -95,10 +108,10 @@ class MenuList extends Component {
                 console.log(err);
             })
         }
-        else if(this.state.sortCondition === 4) {
+        else if(sorting === 2 && level === 2) {
             axios.get(API_URL_1 + '/sortmenuDesc', {
                 params: {
-                    namakategori: this.refs.KategoriSearch.value
+                    namakategori: this.state.valueKategori
                 }
             }).then((res) => {
                 this.setState({ daftarmenu: res.data })
@@ -118,15 +131,13 @@ class MenuList extends Component {
 
     renderMenuList = () => {
         const list = this.state.daftarmenu.map((item, index) => {
-            const { idmenu, menu, kategori, description, harga, images } = item;
+            const { idmenu, menu, kategori, harga, images } = item;
             return(
-                <Col xs={6} md={4} key={index}>
+                <Col xs={6} xsOffset={6} sm={4} smOffset={2} md={3} mdOffset={1} lg={3} lgOffset={1} key={index}>
                     <div className="thumbnail">
                         <img src={require('D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/express_API_Project/images/' + images)} 
                         alt="menu" className="img-responsive" id="imgthumbnail" />
-                        {/* <p>{images}</p> */}
                         <h3>{menu}</h3>
-                        {/* <p>{description}</p> */}
                         <p>Kategori: {kategori}</p>
                         <p>Rp {harga},-
                             &nbsp;
@@ -139,15 +150,27 @@ class MenuList extends Component {
         return list;
     }
 
-    renderOptionKategoriSearch = () => {
-        const arrKtgr = this.state.kategori.map((item, index) => {
-            return (<option key={index} value={item.nama}>{item.nama}</option>);
+    OptionKategori = () => {
+        const arrKtgr = this.state.kategori.map((item) => {
+            return (
+                { value: item.nama, label: item.nama }
+            );
         })
         return arrKtgr;
     }
 
     render() { 
-        console.log(this.state.idmenu);
+        // console.log(this.state.idmenu);
+        const SortingOption = [
+            { value: "harga", label: "Harga" },
+            { value: "menu", label: "Menu" }
+        ];
+
+        const LevelOption = [
+            { value: "Asc", label: "Ascending" },
+            { value: "Desc", label: "Descending" }
+        ]
+
         if(this.state.idmenu === 0) {
             return (
                 <div style={{paddingTop: "50px"}} id="menu-background">
@@ -158,20 +181,20 @@ class MenuList extends Component {
                         <div className="box-header">
                             <h1 className="box-title" style={{ color: '#ff7200', fontWeight: 'bold' }}>Menu Makanan</h1>
                         </div>
-                        <div style={{ padding: '25px' }}>
-                            <select ref="KategoriSearch" onChange={this.onSelectSearch} style={{ margin: '0 10px 10px 0' }}>
-                                <option value=""> -- Pilih Kategori -- </option>
-                                {this.renderOptionKategoriSearch()}
-                            </select>
-                            <label style={{ marginRight: '10px', color: 'orange', fontWeight: 'bolder' }}>Sorting by :</label>
-                            <select ref="SortingMenu" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
+                        <div className="sidenav">
+                            <p>Kategori</p>
+                            <Select options={this.OptionKategori()} onChange={opt => this.onSelectSearch(opt.value)} />
+                            <p>Sort by:</p>
+                            {/* <select ref="SortingMenu" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
                                 <option value="Harga">Harga</option>
                                 <option value="Menu">Menu</option>
-                            </select>
-                            <select ref="JenisUrutan" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
+                            </select> */}
+                            <Select options={SortingOption} onChange={opt => this.onSortingSelect(opt.value)} />
+                            {/* <select ref="JenisUrutan" style={{ marginRight: '10px' }} onChange={this.onSortingMethod} >
                                 <option value="Asc">Ascending</option>
                                 <option value="Desc">Descending</option>
-                            </select>
+                            </select> */}
+                            <Select options={LevelOption} onChange={opt => this.onLevelSelect(opt.value)} />
                             <input type="button" value="Submit" onClick={this.onBtnSortClick} />
                         </div>
                         <div className="box-body">

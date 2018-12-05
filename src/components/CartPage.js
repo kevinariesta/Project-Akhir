@@ -165,7 +165,8 @@ class CartPage extends Component {
             );
         }
         return (
-            <div style={{ paddingTop: '50px', margin: '0 150px' }}>
+            // <div style={{ paddingTop: '50px', margin: '0 150px' }}>
+            <div id="cartpage">
                 <h1>Cart List</h1>
                 <div condensed='true'>
                     <Table condensed hover style={{ width: '1000px' }}>

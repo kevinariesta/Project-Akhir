@@ -167,12 +167,12 @@ class MenuList extends Component {
         return list;
     }
 
-    renderOptionKategoriSearch = () => {
-        const arrKtgr = this.state.kategori.map((item, index) => {
-            return (<option key={index} value={item.nama}>{item.nama}</option>);
-        })
-        return arrKtgr;
-    }
+    // renderOptionKategoriSearch = () => {
+    //     const arrKtgr = this.state.kategori.map((item, index) => {
+    //         return (<option key={index} value={item.nama}>{item.nama}</option>);
+    //     })
+    //     return arrKtgr;
+    // }
 
     render() { 
         console.log(this.state.idmenu);
@@ -186,7 +186,7 @@ class MenuList extends Component {
                         <div className="box-header">
                             <h1 className="box-title">Search Result</h1>
                         </div>
-                        <div style={{ padding: '25px' }}>
+                        {/* <div style={{ padding: '25px' }}>
                             <select ref="KategoriSearch" onChange={this.onSelectSearch} style={{ margin: '0 10px 10px 0' }}>
                                 <option value=""> -- Pilih Kategori -- </option>
                                 {this.renderOptionKategoriSearch()}
@@ -201,7 +201,7 @@ class MenuList extends Component {
                                 <option value="Desc">Descending</option>
                             </select>
                             <input type="button" value="Submit" onClick={this.onBtnSortClick} />
-                        </div>
+                        </div> */}
                         <div className="box-body">
                             <div>{this.renderMenuList()}</div>
                         </div>

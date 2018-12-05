@@ -23,13 +23,30 @@
 }
 
 #homepage {
-  padding-top: 50px;
+  padding: 50px 0;
   width: auto;
   height: 100%;
 } 
 
 #menu-background {
-background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/backgroundhomepage.jpg")
+  background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/backgroundhomepage.jpg");
+}
+
+#home-background {
+  background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/homepage.jpg");
+  padding: 50px 0;
+  width: auto;
+  height: 100%;
+}
+
+#menudetails {
+  background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/menudetails.jpg");
+  padding: 50px 0 365px 0;
+}
+
+#cartpage {
+  background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/images/menudetails.jpg");
+  padding: 50px 150px 355px 150px;
 }
 
 .slide .makanan img {
@@ -40,11 +57,10 @@ background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/im
 }
 
 .hometitle{
-  color: black;
+  color: whitesmoke;
 }
 
 #navbarStyle {
-  /* background-color: #c61515; */
   background-color: red;
 }
 
@@ -206,6 +222,43 @@ background-image: url("D:/JOB CONNECTOR PURWADHIKA/PROJECT AKHIR/project1/src/im
   padding: 15px;
   display: inline-block;
   line-height: 20px;
+}
+
+.sidenav {
+  width: 170px;
+  position: fixed;
+  z-index: 1;
+  top: 20px;
+  left: 10px;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 25px 10px;
+  margin: 100px 25px;
+  /* border: 2px solid red;
+  border-radius: 5px; */
+}
+
+.sidenav p {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #2196F3;
+  display: block;
+}
+
+/* .sidenav a:hover {
+  color: #064579;
+} */
+
+.main {
+  margin-left: 140px; /* Same width as the sidebar + left position in px */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 
 @keyframes App-logo-spin {

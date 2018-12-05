@@ -82,7 +82,7 @@ class MenuDetails extends Component {
 
     render() { 
         return (
-            <div style={{ paddingTop: '50px' }}>
+            <div id="menudetails">
                 <h1>Menu Details</h1>
                 {this.renderMenuDetails()}
             </div>
